@@ -23,6 +23,10 @@ final class SearchApiMock extends MockHttpClient
         $faker = \Faker\Factory::create();
 
         if ($method === 'GET' && str_starts_with($url, $this->baseUri.'/api/products')) {
+            if (str_contains($url, 'title=test')) {
+                return $this->getEmptyApiProductsMock($faker);
+            }
+
             return $this->getApiProductsMock($faker);
         }
 
@@ -40,12 +44,7 @@ final class SearchApiMock extends MockHttpClient
             $data[] = [
                 'id' => $faker->randomNumber(5, true),
                 'title' => $faker->words(3, true),
-                'updated' => '',
                 'dest' => 'London',
-                'price_from_adult' => '62.00',
-                'price_from_child' => '42.00',
-                'rrp_adult' => '',
-                'rrp_child' => '',
                 'img_sml' => 'https:\/\/global.atdtravel.com\/sites\/default\/files\/imagecache\/atd_list_thumb\/ticket_description\/go_london_explorer_pass\/146.jpg',
             ];
         }
@@ -60,6 +59,16 @@ final class SearchApiMock extends MockHttpClient
             ],
             'data' => $data,
         ];
+
+        return new MockResponse(
+            json_encode($mock, JSON_THROW_ON_ERROR),
+            ['http_code' => Response::HTTP_OK]
+        );
+    }
+
+    private function getEmptyApiProductsMock(\Faker\Generator $faker): MockResponse
+    {
+        $mock = [['err_desc' => 'No products found.']];
 
         return new MockResponse(
             json_encode($mock, JSON_THROW_ON_ERROR),

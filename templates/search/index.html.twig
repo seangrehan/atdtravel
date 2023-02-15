@@ -35,7 +35,11 @@
     {% endif %}
 
     <section>
+        {% if products %}
         <p>Showing {{ from }} to {{ to }} of {{ total }} products.</p>
+        {% else %}
+        <p>Found 0 products.</p>
+        {% endif %}
     </section>
 
     <section>

@@ -23,7 +23,7 @@ class SearchController extends AbstractController
         $geo    = $request->query->get('geo') ?? 'en';
         $title  = $request->query->get('title') ?? '';
         $page   = (int) $request->query->get('page') ?? 1;
-        $offset = ($page - 1) * 10;
+        $offset = ($page ?? 1 - 1) * 10;
 
         // get form
         $form = $this->createForm(SearchFormType::class);
@@ -45,7 +45,7 @@ class SearchController extends AbstractController
         return $this->render('search/index.html.twig', [
             'form'       => $form,
             'products'   => $products['data'] ?? [],
-            'from'       => $from ? $from + 1 : 0,
+            'from'       => $from ? $from + 1 : 1,
             'to'         => $to,
             'total'      => $total,
             'pagination' => $pagination,
