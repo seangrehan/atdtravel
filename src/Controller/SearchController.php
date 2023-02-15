@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Controller\Search\ApiController;
 use App\Form\SearchFormType;
 use App\Service\Pagination;
+use App\Utility\SearchApi;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SearchController extends AbstractController
 {
-    public function __construct(private ApiController $api)
+    public function __construct(private SearchApi $searchApi)
     {
     }
 
@@ -21,15 +21,15 @@ class SearchController extends AbstractController
     {
         // fetch query params.
         $geo    = $request->query->get('geo') ?? 'en';
-        $page   = (int) $request->query->get('page') ?? 1;
         $title  = $request->query->get('title') ?? '';
+        $page   = (int) $request->query->get('page') ?? 1;
         $offset = ($page - 1) * 10;
 
         // get form
         $form = $this->createForm(SearchFormType::class);
 
         // make search api request.
-        $products = $this->api->fetchProducts($geo, $title, $offset);
+        $products = $this->searchApi->fetchProducts($geo, $title, $offset);
 
         // get totals
         $from        = $products['meta']['offset'] ?? 0;

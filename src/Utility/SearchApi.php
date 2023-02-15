@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Controller\Search;
+namespace App\Utility;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class ApiController extends AbstractController
+class SearchApi extends AbstractController
 {
-    public function __construct(private HttpClientInterface $client)
+    public function __construct(private HttpClientInterface $searchApiClient)
     {
     }
 
     public function fetchProducts(string $geo, string $title = '', int $offset = 0): array
     {
-        $response = $this->client->request(
+        $response = $this->searchApiClient->request(
             'GET',
-            'https://global.atdtravel.com/api/products',
+            '/api/products',
             [
                 'query' => [
                     'geo'    => $geo,

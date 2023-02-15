@@ -21,8 +21,10 @@ class SearchControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/search');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('table', 'Image');
-        $this->assertSelectorTextContains('table', 'Title');
-        $this->assertSelectorTextContains('table', 'Destination');
+        $this->assertSelectorTextContains('thead', 'Image');
+        $this->assertSelectorTextContains('thead', 'Title');
+        $this->assertSelectorTextContains('thead', 'Destination');
     }
+
+    // public function test
 }

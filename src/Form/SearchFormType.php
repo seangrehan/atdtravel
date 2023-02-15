@@ -15,7 +15,7 @@ class SearchFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', SearchType::class, ['property_path' => 'title', 'required' => false])
+            ->add('title', SearchType::class, ['required' => false])
             ->add('geo', EnumType::class, ['class' => Geo::class, 'label' => 'Region'])
             ->add('search', SubmitType::class)
         ;
@@ -31,6 +31,7 @@ class SearchFormType extends AbstractType
         $resolver->setDefaults([
             // Configure your form options here
             'csrf_protection' => false,
+            'method' => 'GET',
         ]);
     }
 }

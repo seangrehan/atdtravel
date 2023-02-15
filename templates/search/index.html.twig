@@ -11,7 +11,7 @@
 <div class="example-wrapper">
     <h1><a href="{{ path('app_search') }}">Product Search</a></h1>
 
-    {{ form(form, {'action': path('app_search'), 'method': 'GET'}) }}
+    {{ form(form, {'action': path('app_search')}) }}
     
     {% if products %}
     <table>
@@ -41,8 +41,7 @@
     <section>
         <nav>
             {% for key, page in pagination.items %}
-                <a href="{{ path('app_search', {'title': app.request.query.get('title'), 'page': key}) }}">{{ page }}</a>
-
+            <a href="{{ path('app_search', {'title': app.request.query.get('title'), 'page': key}) }}">{{ page }}</a>
             {% endfor %}
         </nav>
     </section>

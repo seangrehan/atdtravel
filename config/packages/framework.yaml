@@ -5,6 +5,13 @@ framework:
     http_method_override: false
     handle_all_throwables: true
 
+    # https://symfony.com/doc/current/components/http_client.html#symfony-framework-integration
+    http_client:
+        scoped_clients:
+            # Specialized client to consume the SearchApi
+            search.api.client:
+                base_uri: 'https://global.atdtravel.com'
+
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
     session:
