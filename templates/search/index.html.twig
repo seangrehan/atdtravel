@@ -3,7 +3,7 @@
 {% block title %}A Web Page{% endblock %}
 
 {% block body %}
-<div class="container px-4 m-auto">
+<main class="container px-4 m-auto">
     <section class="flex justify-center mt-4">
         <h1 class="text-5xl font-bold mt-0 mb-6"><a href="{{ path('app_search') }}">Product Search</a></h1>
     </section>
@@ -56,4 +56,5 @@
             {% endfor %}
         </nav>
     </section>
+</main>
 {% endblock %}

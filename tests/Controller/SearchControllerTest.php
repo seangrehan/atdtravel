@@ -42,7 +42,7 @@ class SearchControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/search');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('section', 'Showing 1 to 10 of 10 products.');
+        $this->assertSelectorTextContains('main', 'Showing 1 to 10 of 10 products.');
     }
 
     public function testNoResults(): void
@@ -51,6 +51,6 @@ class SearchControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/search?title=test');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('section', 'Found 0 products.');
+        $this->assertSelectorTextContains('main', 'Found 0 products.');
     }
 }

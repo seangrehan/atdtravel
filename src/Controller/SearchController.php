@@ -22,8 +22,9 @@ class SearchController extends AbstractController
         // fetch query params.
         $geo    = $request->query->get('geo') ?? 'en';
         $title  = $request->query->get('title') ?? '';
-        $page   = (int) $request->query->get('page') ?? 1;
-        $offset = ($page * 10) - 10;
+        $page   = (int) ($request->query->get('page') ?? 1);
+        $limit  = 10;
+        $offset = ($page * $limit) - $limit;
 
         // get form
         $form = $this->createForm(SearchFormType::class);
