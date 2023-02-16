@@ -23,6 +23,29 @@ class PaginationTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testSecondPage()
+    {
+        $pagination = new Pagination();
+
+        $actual = $pagination->paginate(2, 10);
+
+        $expected = [
+            'current' => 2,
+            'prev'    => 1,
+            'next'    => 3,
+            'items'   => [
+                1 => 1,
+                2 => 2,
+                3 => 3,
+                4 => 4,
+                5 => '…',
+                10 => 10,
+            ],
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testFirstElements()
     {
         $pagination = new Pagination();

@@ -1,0 +1,6 @@
+{% use 'tailwind_2_layout.html.twig' %}
+
+{%- block submit_widget -%}
+    {%- set attr = attr|merge({ class: attr.class|default('page-link py-1.5 px-3 rounded border-0 outline-none transition-all duration-300 bg-blue-600 text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md') }) -%}
+    {{- parent() -}}
+{%- endblock submit_widget -%}

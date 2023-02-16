@@ -3,38 +3,39 @@
 {% block title %}A Web Page{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container px-4 m-auto">
+    <section class="flex justify-center mt-4">
+        <h1 class="text-5xl font-bold mt-0 mb-6"><a href="{{ path('app_search') }}">Product Search</a></h1>
+    </section>
 
-<div class="example-wrapper">
-    <h1><a href="{{ path('app_search') }}">Product Search</a></h1>
-
-    {{ form(form, {'action': path('app_search')}) }}
+    <section class="flex justify-center">
+        {{ form(form, {'action': path('app_search')}) }}
+    </section>
     
     {% if products %}
-    <table>
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Title</th>
-                <th>Destination</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for product in products %}
-            <tr>
-                <td><img src="{{ product.img_sml }}"></td>
-                <td>{{ product.title }}</td>
-                <td>{{ product.dest }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <section class="flex justify-center mt-8">
+        <table>
+            <thead class="border-b">
+                <tr>
+                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Image</th>
+                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Title</th>
+                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Destination</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr class="border-b">
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"><img src="{{ product.img_sml }}"></td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ product.title }}</td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ product.dest }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
     {% endif %}
 
-    <section>
+    <section class="flex justify-center mt-4">
         {% if products %}
         <p>Showing {{ from }} to {{ to }} of {{ total }} products.</p>
         {% else %}
@@ -42,10 +43,16 @@
         {% endif %}
     </section>
 
-    <section>
+    <section class="flex justify-center m-4">
         <nav>
             {% for key, page in pagination.items %}
-            <a href="{{ path('app_search', {'title': app.request.query.get('title'), 'page': key}) }}">{{ page }}</a>
+            <a href="{{ path('app_search', {'title': app.request.query.get('title'), 'page': key}) }}" class="page-link py-1.5 px-3 rounded border-0 outline-none transition-all duration-300
+                {% if key == pagination.current %}
+                bg-blue-600 text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md
+                {% else %}
+                bg-transparent text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none
+                {% endif %}
+            ">{{ page }}</a>
             {% endfor %}
         </nav>
     </section>

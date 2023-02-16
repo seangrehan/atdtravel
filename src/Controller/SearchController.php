@@ -23,7 +23,7 @@ class SearchController extends AbstractController
         $geo    = $request->query->get('geo') ?? 'en';
         $title  = $request->query->get('title') ?? '';
         $page   = (int) $request->query->get('page') ?? 1;
-        $offset = ($page ?? 1 - 1) * 10;
+        $offset = ($page * 10) - 10;
 
         // get form
         $form = $this->createForm(SearchFormType::class);
@@ -33,13 +33,12 @@ class SearchController extends AbstractController
 
         // get totals
         $from        = $products['meta']['offset'] ?? 0;
-        $to          = ($products['meta']['offset'] ?? 0) + ($products['meta']['count'] ?? 0);
+        $to          = $from + ($products['meta']['count'] ?? 0);
         $total       = $products['meta']['total_count'] ?? 0;
         $limit       = $products['meta']['limit'] ?? 0;
-        $currentPage = $from > 0 ? $to / $limit : 1;
         $totalPages  = $total > 0 ? ceil($total / $limit) : 0;
 
-        $pagination = $pagination->paginate($currentPage, $totalPages);
+        $pagination = $pagination->paginate($page, $totalPages);
 
         // render search page
         return $this->render('search/index.html.twig', [
